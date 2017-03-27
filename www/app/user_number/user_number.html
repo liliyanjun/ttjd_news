@@ -1,0 +1,62 @@
+<div class="app-container">
+    <br>
+    <div class="font-title">项目概况</div>
+    <br>
+    <table class="table table-bordered text-center">
+        <tr>
+            <td>项目概况</td>
+            <td>新建项目</td>
+            <td>活跃项目</td>
+            <td>活跃率</td>
+        </tr>
+        <tr>
+            <td>今日</td>
+            <td>{{data.today_new_project_count}}</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>昨日</td>
+            <td>{{data.yesterday_new_project_count}}</td>
+            <td>{{data.yesterday_start_project_count}}</td>
+            <td>{{data.yesterday_start_project_count/(data.all_project_count-data.all_project_delete_count)*100|number:2}}%</td>
+        </tr>
+        <tr>
+            <td>过去7天</td>
+            <td>{{data.last7day_new_project_count}}</td>
+            <td>{{data.last7day_start_project_count}}</td>
+            <td>{{data.last7day_start_project_count/(data.all_project_count-data.all_project_delete_count)*100|number:2}}%</td>
+        </tr>
+        <tr>
+            <td>过去30天</td>
+            <td>{{data.last30day_new_project_count}}</td>
+            <td>{{data.last30day_start_project_count}}</td>
+            <td>{{data.last30day_start_project_count/(data.all_project_count-data.all_project_delete_count)*100|number:2}}%</td>
+        </tr>
+        <tr>
+            <td>过去60天</td>
+            <td>{{data.last60day_new_project_count}}</td>
+            <td>{{data.last60day_start_project_count}}</td>
+            <td>{{data.last60day_start_project_count/(data.all_project_count-data.all_project_delete_count)*100|number:2}}%</td>
+        </tr>
+    </table>
+    <br>
+    <div>
+        <div class="col-xs-4" style="line-height: 48px;">累计项目:{{data.all_project_count}}</div>
+        <div class="col-xs-4" style="line-height: 48px;">试用项目:{{data.all_project_no_renzheng_count}}</div>
+        <div class="col-xs-4" style="line-height: 48px;">订阅项目:{{data.all_project_renzheng_count}}</div>
+    </div>
+    <div>
+        <div class="col-xs-4" style="line-height: 48px;">正常:{{data.all_project_normal_count}}</div>
+        <div class="col-xs-4" style="line-height: 48px;">正常:{{data.no_renzheng_project_normal_count}}</div>
+        <div class="col-xs-4" style="line-height: 48px;">正常:{{data.renzheng_project_normal_count}}</div>
+    </div>
+    <div>
+        <div class="col-xs-4" style="line-height: 48px;">到期:{{data.all_project_expire_count}}</div>
+        <div class="col-xs-4" style="line-height: 48px;">到期:{{data.no_renzheng_project_expire_count}}</div>
+        <div class="col-xs-4" style="line-height: 48px;">到期:{{data.renzheng_project_expire_count}}</div>
+    </div>
+    <div>
+        <div class="col-xs-4" style="line-height: 48px;">解散:{{data.all_project_delete_count}}</div>
+    </div>
+</div>

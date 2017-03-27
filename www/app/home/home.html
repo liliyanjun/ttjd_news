@@ -1,0 +1,117 @@
+<div class="container">
+    <br>
+    <br>
+    <div class="font-title">用户概况</div>
+    <br>
+    <table class="table table-bordered text-center">
+        <tr>
+            <td></td>
+            <td>新增注册用户</td>
+            <td>累计注册用户</td>
+            <td>新增未激活用户</td>
+            <td>累计未激活用户</td>
+            <td>累计用户</td>
+        </tr>
+        <tr>
+            <td>今日</td>
+            <td>{{data.today_new_user_count}}</td>
+            <td>{{data.all_reg_user_count}}</td>
+            <td>{{data.today_new_noreg_user_count}}</td>           
+            <td>{{data.all_no_reg_user_count}}</td>
+            <td>{{data.all_user_count}}</td>
+        </tr>
+        <tr>
+            <td>昨日</td>
+            <td>{{data.yesterday_new_user_count}}</td>
+            <td>{{data.yesterday_new_noreg_user_count}}</td>
+            <td>{{data.yesterday_start_user_count}}</td>
+            <td>{{data.yesterday_start_user_count/data.all_reg_user_count*100|number:2}}%</td>
+            <td>{{data.yesterday_start_count}}</td>
+        </tr>
+    </table>
+    <br>
+    <br>
+    
+    
+    <div class="font-title">活跃概况</div>
+    <br>
+    <table class="table table-bordered text-center">
+        <tr>
+            <td></td>
+            <td>活跃用户</td>
+            <td>活跃率</td>
+            <td>启动次数</td>
+            <td>人年均启动次数</td>
+            <td>使用时长</td>
+            <td>人均使用时长</td>
+        </tr>
+        <tr>
+            <td>昨日</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>上周</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>上月</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+    </table>
+    
+    <div class="font-title">活跃用户地区排行</div>
+    <br>
+    <table class="table table-bordered text-center">
+        <tr>
+            <td></td>
+            <td>第一名</td>
+            <td>第二名</td>
+            <td>第三名</td>
+            <td>第四名</td>
+            <td>第五名</td>
+            <td>第六名</td>
+        </tr>
+        <tr>
+            <td>昨日</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>上周</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>上月</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+    </table>
+</div>

@@ -1,0 +1,140 @@
+<div class="app-container">
+    <br>
+    <div class="formly-inline">
+        <div class="box btnbox" style="float: left;">
+        <span>注册时间：</span>
+        <button ng-click="query_btn(1)" class="btn btn-primary " style="background:#122b40 ">昨日</button>
+        <button ng-click="query_btn(2)" class="btn btn-primary">过去7天</button>
+        <button ng-click="query_btn(3)" class="btn btn-primary">过去30天</button>
+        <button ng-click="query_btn(4)" class="btn btn-primary">过去60天</button>
+        </div>
+        <script>
+            // 2016.9.19修改背景色
+            $(".btnbox>.btn").mousedown(function () {
+                index=$(this).index();
+                $(".btnbox>.btn").css({background:"#337ab7"}).eq(index-1).css({background:"#122b40"})
+            })
+        </script>
+
+        <div class="font-title" ng-if="show_start_date" style="line-height: 64px;margin-left: 12px;">{{show_start_date}}至{{show_end_date}}</div>
+        <formly-form model="query.data" fields="query_config" style="line-height: 64px;">
+        </formly-form>
+        <!--<button class="btn btn-primary" ng-click="query_btn()">查询</button>-->
+
+
+    </div>
+        <div class="bigbox btnbox2">
+        <span>统计类型：</span>
+        <button ng-click="query_btn_top(1)" class="btn btn-primary "  style="background:#122b40 ">新建项目</button>
+        <button ng-click="query_btn_top(2)" class="btn btn-primary">活跃项目</button>
+        <button ng-click="query_btn_top(3)" class="btn btn-primary">正常项目</button>
+        <button ng-click="query_btn_top(4)" class="btn btn-primary">订阅项目</button>
+
+
+    <div class="chart-container">
+        <highchart ng-if="chartConfig" id="chart1" config="chartConfig"></highchart>
+    </div>
+   </div>
+    <script>
+        // 2016.9.19修改背景色
+        $(".btnbox2>.btn").mousedown(function () {
+            index=$(this).index();
+            $(".btnbox2>.btn").css({background:"#337ab7"}).eq(index-1).css({background:"#122b40"})
+        })
+    </script>
+    <!--<table class="table table-bordered" ng-if="query_top_type==1">-->
+        <!--<tr>-->
+            <!--<th>地区</th>-->
+            <!--<th>新建项目数</th>-->
+        <!--</tr>-->
+        <!--<tr ng-repeat="item in new_project_top10">-->
+            <!--<td>{{item.name}}</td>-->
+            <!--<td>{{item.new_project_count}}</td>-->
+        <!--</tr>-->
+    <!--</table>-->
+    <!--<table class="table table-bordered" ng-if="query_top_type==2">-->
+        <!--<tr>-->
+            <!--<th>地区</th>-->
+            <!--<th>活跃项目数</th>-->
+        <!--</tr>-->
+        <!--<tr ng-repeat="item in active_project_top10">-->
+            <!--<td>{{item.name}}</td>-->
+            <!--<td>{{item.active_project_count}}</td>-->
+        <!--</tr>-->
+    <!--</table>-->
+    <!--<table class="table table-bordered" ng-if="query_top_type==3">-->
+        <!--<tr>-->
+            <!--<th>地区</th>-->
+            <!--<th>正常项目数</th>-->
+        <!--</tr>-->
+        <!--<tr ng-repeat="item in normal_project_top10">-->
+            <!--<td>{{item.name}}</td>-->
+            <!--<td>{{item.normal_project_count}}</td>-->
+        <!--</tr>-->
+    <!--</table>-->
+    <!--<table class="table table-bordered" ng-if="query_top_type==4">-->
+        <!--<tr>-->
+            <!--<th>地区</th>-->
+            <!--<th>订阅项目数</th>-->
+        <!--</tr>-->
+        <!--<tr ng-repeat="item in renzheng_project_top10">-->
+            <!--<td>{{item.name}}</td>-->
+            <!--<td>{{item.renzheng_project_count}}</td>-->
+        <!--</tr>-->
+    <!--</table>-->
+    <table class="table table-bordered">
+        <tr>
+            <th>地区分布</th>
+            <th>新建项目</th>
+            <th>占比</th>
+            <th>活跃项目</th>
+            <th>占比</th>
+            <th>正常项目</th>
+            <th>占比</th>
+            <th>订阅项目</th>
+            <th>占比</th>
+        </tr>
+        <tr ng-repeat="data in dataresult">
+            <td>{{data.name}}</td>
+            <td>{{data.new_project_count}}</td>
+            <td ng-if="data.name!='未知'">{{data.new_project_count/new_project_count*100|number:2}}%</td>
+            <td ng-if="data.name=='未知'">-</td>
+            <td>{{data.active_project_count}}</td>
+            <td ng-if="data.name!='未知'">{{data.active_project_count/active_project_count*100|number:2}}%</td>
+            <td ng-if="data.name=='未知'">-</td>
+            <td>{{data.normal_project_count}}</td>
+            <td ng-if="data.name!='未知'">{{data.normal_project_count/normal_project_count*100|number:2}}%</td>
+            <td ng-if="data.name=='未知'">-</td>
+            <td>{{data.renzheng_project_count}}</td>
+            <td ng-if="data.name!='未知'">{{data.renzheng_project_count/renzheng_project_count*100|number:2}}%</td>
+            <td ng-if="data.name=='未知'">-</td>
+        </tr>
+        <tr ng-if="dataresult.length>0">
+            <td>合计</td>
+            <td>{{new_project_count}}</td>
+            <td>100%</td>
+            <td>{{active_project_count}}</td>
+            <td>100%</td>
+            <td>{{normal_project_count}}</td>
+            <td>100%</td>
+            <td>{{renzheng_project_count}}</td>
+            <td>100%</td>
+        </tr>
+        <!--<tr ng-repeat="city in city_list" ng-if="query.data.query_area_type">-->
+            <!--<td>{{city.province_name}} {{city.city_name}}</td>-->
+            <!--<td ng-repeat="t in total_user_result" ng-if="t.name==city.city_name">{{t.count}}</td>-->
+            <!--<td ng-repeat="t in total_user_result" ng-if="t.name==city.city_name">{{t.count/total_user_count*100|number:2}}%</td>-->
+            <!--<td ng-repeat="n in new_user_result" ng-if="n.name==city.city_name">{{n.count}}</td>-->
+            <!--<td ng-repeat="n in new_user_result" ng-if="n.name==city.city_name">{{n.count/new_user_count*100|number:2}}%</td>-->
+        <!--</tr>-->
+        <!--<tr ng-repeat="province in province_list" ng-if="!query.data.query_area_type">-->
+            <!--<td>{{province.province_name}}</td>-->
+            <!--<td ng-repeat="t in total_user_result" ng-if="t.name==province.province_name">{{t.count}}</td>-->
+            <!--<td ng-repeat="t in total_user_result" ng-if="t.name==province.province_name">{{t.count/total_user_count*100|number:2}}%</td>-->
+            <!--<td ng-repeat="n in new_user_result" ng-if="n.name==province.province_name">{{n.count}}</td>-->
+            <!--<td ng-repeat="n in new_user_result" ng-if="n.name==province.province_name">{{n.count/new_user_count*100|number:2}}%</td>-->
+        <!--</tr>-->
+    </table>
+
+</div>
+
