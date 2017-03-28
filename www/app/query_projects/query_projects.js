@@ -120,17 +120,11 @@ app.controller('queryProjectsCtrl', function ($scope, httpReq, auth, $location, 
                 type: 'select',
                 templateOptions: {
                     options: [{
-                        "name": "工程名称",
+                        "name": "项目名称",
                         "value": 1
                     }, {
-                        "name": "超级管理员",
+                        "name": "ID",
                         "value": 2
-                    }, {
-                        "name": "联系电话",
-                        "value": 3
-                    }, {
-                        "name": "渠道代码",
-                        "value": 4
                     }]
                 }
             },

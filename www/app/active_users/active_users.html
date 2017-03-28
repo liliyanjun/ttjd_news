@@ -27,25 +27,24 @@
         <thead>
         <tr>
             <th>用户名</th>
-            <th style="text-align: center;">用户ID号</th>
+            <th>建道号</th>
             <th style="text-align: center;">手机号码</th>
             <th style="text-align: center;">归属地区(手机)</th>
-            <th style="text-align: center;">性别</th>
-            <th style="text-align: center;">生日</th>
-            <th style="text-align: center;">故乡</th>
-            <th style="text-align: center;">注册时间</th>
-            <th>使用时长(天)</th>
-            <th>启动次数</th>
+            <th>终端型号</th>
+            <th>软件版本</th>
+            <th>注册天数</th>
+            <!--<th style="text-align: center;">生日</th>-->
+            <th style="text-align: center;">启动次数</th>
+            <th style="text-align: center;">使用时长</th>
+            <th>详细信息</th>
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="item in data.result">
             <td style="width: 200px;word-break: break-all">{{item.realname}}</td>
-            <td style="text-align: center;">{{item.id}}</td>
             <td style="text-align: center;">{{item.tel}}</td>
             <td style="text-align: center;">{{item.tel_province}} {{item.tel_city}}</td>
-            <td style="text-align: center;">{{item.sex?'男':'女'}}</td>
-            <td style="text-align: center;">{{item.birthday}}</td>
+            <td>-</td>
             <td style="text-align: center;">{{item.address_name}}</td>
             <td style="text-align: center;">{{item.create_time}}</td>
             <td>{{item.create_days}}</td>

@@ -1,55 +1,22 @@
 /**
  * Created by fanjunwei on 16/4/18.
  */
-
-app.controller('homeCtrl', function ($scope, $rootScope, httpReq, $interval, modalBox, $location, myUserInfo, $state, showConfirm) {
+app.controller('queryProjectShow', function ($scope, $rootScope, httpReq, $interval, modalBox, $location, myUserInfo, $state, showConfirm) {
     $scope.data = {};
-    httpReq("/nm2/query_home_info_v3").then(function (data) {
-        $scope.data = data.result;
-    })
-    $scope.data2 = {};
     $scope.j_day = j_day; 
     $scope.l_m = l_e;
     $scope.start_date = s_day;
     $scope.end_date = e_day;
 	$scope.tomorrow = tomorrow;
-	console.log($scope.end_date);
-    httpReq("/nm2/user/query_user_distribution", {
-        start_date: $scope.start_date,
-        end_date: $scope.end_date,
-        type: true
-    }).then(function (data2) {
-		$scope.total_user_result = data2.result.total_user_result;
-        $scope.new_user_result = data2.result.new_user_result;
-        $scope.start_user_result = data2.result.start_user_result;
-        $scope.start_num_result = data2.result.start_num_result;
-//		for(i=0;i<$scope.total_user_result.length;i++){
-//			$scope.y_city = $scope.total_user_result[i].count;
-//			
-//			
-//		}
-		for(j in $scope.total_user_result){
-			var sortBy = function (filed, rev, primer) {
-			    rev = (rev) ? -1 : 1;
-			    return function (a, b) {
-			        a = a[filed];
-			        b = b[filed];
-			        if (typeof (primer) != 'undefined') {
-			            a = primer(a);
-			            b = primer(b);
-			        }
-			        if (a < b) { return rev * -1; }
-			        if (a > b) { return rev * 1; }
-			        return 1;
-			    }
-			};
-			$scope.total_user_result.sort(sortBy('b', false, parseInt));
-			console.log($scope.total_user_result[j]);
-//			console.log(typeof($scope.total_user_result[j]));
-		}
+    httpReq("/nm2/query_home_info_v3").then(function (data) {
+        $scope.data = data.result;
     })
-    
+//  $scope.data3 = {};
+//  httpReq("/nm2/project/query_project_v2").then(function (data3) {
+//      $scope.data3 = data3.result;
+//  })
 });
+
 
 var d = new Date();
 var weekday=new Array(7);
@@ -94,7 +61,7 @@ var l_month = '('+ld+'-'+')';
 var l_e = '('+ld+'-'+ed+')'; //上月
 
 //window.onload = function(){     
-//	var cells = document.getElementById('monitor').getElementsByTagName('span');
+//	var cells = document.getElementById('monitor3').getElementsByTagName('span');
 //	var clen = cells.length;
 //	var currentFirstDate;
 //	var formatDate = function(date){             
@@ -118,7 +85,7 @@ var l_e = '('+ld+'-'+ed+')'; //上月
 //	};                
 //	setDate(new Date());
 //	
-//	var cells = document.getElementById('monitor2').getElementsByTagName('span');
+//	var cells = document.getElementById('monitor4').getElementsByTagName('span');
 //	var clen = cells.length;
 //	var currentFirstDate;
 //	var formatDate = function(date){             

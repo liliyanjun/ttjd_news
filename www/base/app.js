@@ -49,19 +49,6 @@ app.config(function ($stateProvider, $urlRouterProvider, modalBoxProvider, forml
             templateUrl: "app/active_projects/active_projects.html",
             controller: "activeProjectsCtrl"
         })
-        //报错
-//      .state('main.user_summary', {
-//          url: '/user_summary',
-//          templateUrl: "app/user_summary/user_summary.html",
-//          controller: "zhuUserSummary"
-//      })
-        //报错
-//      .state('main.user_number', {
-//          url: '/user_number',
-//          templateUrl: "app/user_number/user_number.html",
-//          controller: "zhuUserNumber"
-//      })
-        
         .state('main.query_projects', {
             url: '/query_projects',
             templateUrl: "app/query_projects/query_projects.html",
@@ -108,8 +95,28 @@ app.config(function ($stateProvider, $urlRouterProvider, modalBoxProvider, forml
             templateUrl: "app/query_orders/query_orders.html",
             controller: "queryOrdersCtrl"
         })
-
-
+		//2017-03-28 add 
+		.state('main.project_show', {            
+            url: '/project_show',
+            templateUrl: "app/project_show/project_show.html",
+            controller: "queryProjectShow"
+       })
+		.state('main.not_active', {            
+            url: '/not_active',
+            templateUrl: "app/not_active/not_active.html",
+            controller: "userNotActive"
+        })
+		.state('main.dissolution_project', {            
+            url: '/dissolution_project',
+            templateUrl: "app/dissolution_project/dissolution_project.html",
+            controller: "jieDissolutionProject"
+        })
+		.state('main.functional_module', {            
+            url: '/functional_module',
+            templateUrl: "app/functional_module/functional_module.html",
+            controller: "gongFunctionalModule"
+        })
+		
     $urlRouterProvider.otherwise(function ($injector, $location) {
         var auth = $injector.get("auth");
         var loading = $injector.get('loading');

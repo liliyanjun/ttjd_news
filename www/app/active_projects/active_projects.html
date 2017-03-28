@@ -1,16 +1,6 @@
 <div class="app-container">
     <br>
-    <form ng-submit="" class="formly-inline pull-right" style="line-height: 64px;">
-
-        <formly-form model="query.data" fields="query_config" style="padding-left: 16px;"></formly-form>
-        <div class="box box_one">
-         <span>创建时间：</span>
-        <button ng-click="query_btn(1)" class="btn btn-primary " style="background:#122b40 ">昨日</button>
-        <button ng-click="query_btn(2)" class="btn btn-primary">过去7天</button>
-        <button ng-click="query_btn(3)" class="btn btn-primary">过去30天</button>
-        <button ng-click="query_btn(4)" class="btn btn-primary">过去60天</button>
-        </div>
-    </form>
+    
     <script>
         // 2016.9.19
         // 修改按钮颜色 guohongjun
@@ -23,50 +13,50 @@
 
     <div class="clearfix"></div>
     <br>
-    <span ng-if="data.length>0">项目汇总:{{data.length}}</span>
+    <span ng-if="data.length>0">小计:{{data.length}}</span>
     <span ng-if="data.length<=0">暂无内容</span>
     <table class="table table-bordered table-striped">
         <thead>
         <tr>
-            <th style="text-align: center;">项目ID</th>
-            <th>工程名称</th>
-            <th style="text-align: center;">工程地点</th>
-            <th>项目成员</th>
-            <th>账户属性</th>
-            <th style="text-align: center;">项目详情</th>
-            <th>操作</th>
-            <th style="text-align: center;">创建时间</th>
-            <th>使用时长(天)</th>
-            <th>操作日志数</th>
+            <th style="text-align: center;">注册编码</th>
+            <th>首次订阅时间</th>
+            <th style="text-align: center;">项目名称</th>
+            <th>项目ID</th>
+            <th>项目地点</th>
+            <th style="text-align: center;">项目注册时间</th>
+            <th>团队成员</th>
+            <th style="text-align: center;">超级管理员</th>
+            <th>建道号</th>
+            <th>手机号码</th>
+            <th>邀请码</th>
+            <th>账户状态</th>
+            <th>订阅到期时间</th>
+            <th>操作日志</th>
+            <th>项目详情</th>
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="item in data">
+            <td style="text-align: center;">-</td>
+            <td>-</td>
+            <td style="width: 150px;word-break: break-all;">{{item.name}}</td>           
             <td style="text-align: center;">{{item.id}}</td>
-            <td style="width: 150px;word-break: break-all;">{{item.name}}</td>
             <td style="text-align: center;">{{item.address_name}}</td>
+            
+            <td style="text-align: center;">{{item.create_time}}</td>
             <td ng-click="show_project_member(item)" style="color:blue;" >{{item.members_count}}</td>
+            <td>{{item.manager_name}}</td>
+            <td>-</td>
+            <td>{{item.manager_tel}}</td>
+            <td style="text-align: center;">-</td>
+            <td>-</td>
+            <td>{{item.use_end_date}}</td>
             <td>
-                <span ng-if="item.status==3" class="project-state-del">解散</span>
-                <span ng-if="item.status==0 && !item.is_renzheng && (item.enable_days_status==0 || item.enable_days_status==1)" class="project-rezheng-try">试用</span>
-                <span ng-if="item.status==0 &&item.is_renzheng && (item.enable_days_status==0 || item.enable_days_status==1)" class="project-rezheng-renzheng">订阅</span>
-                <span ng-if="item.status==0 &&!item.is_renzheng && item.enable_days_status==2" class="project-rezheng-warning">试用到期</span>
-                <span ng-if="item.status==0 &&item.is_renzheng && item.enable_days_status==2" class="project-rezheng-timeout">订阅到期</span>
+                <button type="button" class="btn btn-success" ng-click="log_project(item)">日志</button>
             </td>
             <td style="text-align: center;">
                 <button type="button" class="btn btn-success" ng-click="show_projectinfo(item)">查看</button>
             </td>
-            <td>
-                <button type="button" class="btn btn-success" ng-click="recover_project(item)" ng-if="item.status==3">恢复</button>
-                <button type="button" class="btn btn-success" ng-click="delete_project(item)" ng-if="item.status!=3">解散</button>
-                <button type="button" class="btn btn-success" ng-click="log_project(item)">日志</button>
-                <button type="button" class="btn btn-success" ng-click="renzheng_project(item)" ng-if="item.status==0 && !item.is_renzheng && (item.enable_days_status==0 || item.enable_days_status==1)">订阅</button>
-                <button type="button" class="btn btn-success" ng-click="renzheng_project(item)" ng-if="item.status==0 &&!item.is_renzheng && item.enable_days_status==2">订阅</button>
-                <button type="button" class="btn btn-success" ng-click="renzheng_project(item)" ng-if="item.status==0 &&item.is_renzheng && item.enable_days_status==2">订阅</button>
-            </td>
-            <td style="text-align: center;">{{item.create_time}}</td>
-            <td>{{item.create_days}}</td>
-            <td>{{item.start_count}}</td>
         </tr>
         </tbody>
     </table>

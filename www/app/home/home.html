@@ -1,7 +1,7 @@
 <div class="container">
     <br>
     <br>
-    <div class="font-title">用户概况</div>
+    <div class="font-title">注册概况</div>
     <br>
     <table class="table table-bordered text-center">
         <tr>
@@ -13,20 +13,24 @@
             <td>累计用户</td>
         </tr>
         <tr>
-            <td>今日</td>
-            <td>{{data.today_new_user_count}}</td>
-            <td>{{data.all_reg_user_count}}</td>
-            <td>{{data.today_new_noreg_user_count}}</td>           
-            <td>{{data.all_no_reg_user_count}}</td>
-            <td>{{data.all_user_count}}</td>
+            <td style="text-align: center;">今日<br />
+            {{j_day}}
+            </td>
+            <td style="text-align: center;">{{data.today_new_user_count}}</td>
+            <td style="text-align: center;">{{data.all_reg_user_count}}</td>
+            <td style="text-align: center;">{{data.today_new_noreg_user_count}}</td>           
+            <td style="text-align: center;">{{data.all_no_reg_user_count}}</td>
+            <td style="text-align: center;">{{data.all_user_count}}</td>
         </tr>
         <tr>
-            <td>昨日</td>
-            <td>{{data.yesterday_new_user_count}}</td>
-            <td>{{data.yesterday_new_noreg_user_count}}</td>
-            <td>{{data.yesterday_start_user_count}}</td>
-            <td>{{data.yesterday_start_user_count/data.all_reg_user_count*100|number:2}}%</td>
-            <td>{{data.yesterday_start_count}}</td>
+            <td style="text-align: center;">昨日<br />
+            {{tomorrow}}
+            </td>
+            <td style="text-align: center;">{{data.yesterday_new_user_count}}</td>
+            <td style="text-align: center;">{{data.yesterday_new_noreg_user_count}}</td>
+            <td style="text-align: center;">{{data.yesterday_start_user_count}}</td>
+            <td style="text-align: center;">-</td>
+            <td style="text-align: center;">{{data.yesterday_start_count}}</td>
         </tr>
     </table>
     <br>
@@ -37,40 +41,50 @@
     <br>
     <table class="table table-bordered text-center">
         <tr>
-            <td></td>
-            <td>活跃用户</td>
-            <td>活跃率</td>
-            <td>启动次数</td>
-            <td>人年均启动次数</td>
-            <td>使用时长</td>
-            <td>人均使用时长</td>
+            <td style="text-align: center;"></td>
+            <td style="text-align: center;">活跃用户</td>
+            <td style="text-align: center;">活跃率</td>
+            <td style="text-align: center;">启动次数</td>
+            <td style="text-align: center;">人年均启动次数</td>
+            <td style="text-align: center;">使用时长</td>
+            <td style="text-align: center;">人均使用时长</td>
         </tr>
         <tr>
-            <td>昨日</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
+            <td style="text-align: center;">昨日<br />
+            {{tomorrow}}
+            </td>
+            <td style="text-align: center;">{{data.yesterday_start_user_count}}</td>
+            <td style="text-align: center;">{{data.yesterday_start_user_count/data.all_reg_user_count*100|number:2}}%</td>
+            <td style="text-align: center;">-</td>
+            <td style="text-align: center;">-</td>
+            <td style="text-align: center;">-</td>
+            <td style="text-align: center;">-</td>
+        </tr>
+        <tr id="monitor" style="text-align: center;">
+            <td style="text-align: center;">上周
+            	<br />
+            	<span></span>
+            	<em>-</em>
+            	<span></span>
+            </td>
+            <td style="text-align: center;">{{data.last7day_start_user_count}}</td>
+            <td style="text-align: center;">{{data.last7day_start_user_count/data.all_reg_user_count*100|number:2}}%</td>
+            <td style="text-align: center;">-</td>
+            <td style="text-align: center;">-</td>
+            <td style="text-align: center;">-</td>
+            <td style="text-align: center;">-</td>
         </tr>
         <tr>
-            <td>上周</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-        </tr>
-        <tr>
-            <td>上月</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
+            <td style="text-align: center;">上月
+            	<br />
+            	{{l_m}}
+            </td>
+            <td style="text-align: center;">{{data.last30day_start_user_count}}</td>
+            <td style="text-align: center;">{{data.last30day_start_user_count/data.all_reg_user_count*100|number:2}}%</td>
+            <td style="text-align: center;">-</td>
+            <td style="text-align: center;">-</td>
+            <td style="text-align: center;">-</td>
+            <td style="text-align: center;">-</td>
         </tr>
     </table>
     
@@ -78,40 +92,50 @@
     <br>
     <table class="table table-bordered text-center">
         <tr>
-            <td></td>
-            <td>第一名</td>
-            <td>第二名</td>
-            <td>第三名</td>
-            <td>第四名</td>
-            <td>第五名</td>
-            <td>第六名</td>
+            <td style="text-align: center;"></td>
+            <td style="text-align: center;">第一名</td>
+            <td style="text-align: center;">第二名</td>
+            <td style="text-align: center;">第三名</td>
+            <td style="text-align: center;">第四名</td>
+            <td style="text-align: center;">第五名</td>
+            <td style="text-align: center;">第六名</td>
         </tr>
         <tr>
-            <td>昨日</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
+            <td style="text-align: center;">昨日<br />
+            {{tomorrow}}
+            </td>
+            <td style="text-align: center;">{{y_city}}</td>
+            <td style="text-align: center;">{{data2.start_user_count/start_user_count*100|number:2}}%</td>
+            <td style="text-align: center;">-</td>
+            <td style="text-align: center;">-</td>
+            <td style="text-align: center;">-</td>
+            <td style="text-align: center;">-</td>
+        </tr>
+        <tr id="monitor2" style="text-align: center;">
+            <td style="text-align: center;">上周
+            	<br />
+            	<span></span>
+            	<em>-</em>
+            	<span></span>
+            </td>
+            <td style="text-align: center;">-</td>
+            <td style="text-align: center;">-</td>
+            <td style="text-align: center;">-</td>
+            <td style="text-align: center;">-</td>
+            <td style="text-align: center;">-</td>
+            <td style="text-align: center;">-</td>
         </tr>
         <tr>
-            <td>上周</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-        </tr>
-        <tr>
-            <td>上月</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
+            <td style="text-align: center;">上月
+            	<br />
+            	{{l_m}}
+            </td>
+            <td style="text-align: center;">-</td>
+            <td style="text-align: center;">-</td>
+            <td style="text-align: center;">-</td>
+            <td style="text-align: center;">-</td>
+            <td style="text-align: center;">-</td>
+            <td style="text-align: center;">-</td>
         </tr>
     </table>
 </div>

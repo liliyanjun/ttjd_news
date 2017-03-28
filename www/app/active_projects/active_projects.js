@@ -57,22 +57,6 @@ app.controller('activeProjectsCtrl', function ($scope, httpReq, auth, $location,
             angular.extend(project, result);
         });
     };
-    $scope.recover_project = function (project) {
-        showConfirm('提示', '是否确认恢复项目').then(function () {
-            httpReq('/nm2/project/recover_project', {project_id: project.id}).then(function () {
-                project.status = 0;
-                showToast('恢复成功', 'success');
-            });
-        });
-    };
-    $scope.delete_project = function (project) {
-        showConfirm('提示', '是否确认解散项目').then(function () {
-            httpReq('/nm2/project/delete_project', {project_id: project.id}).then(function () {
-                project.status = 3;
-                showToast('解散成功', 'success');
-            });
-        });
-    };
     $scope.query_btn(1);
 
 });

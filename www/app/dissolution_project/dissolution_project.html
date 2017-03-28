@@ -1,15 +1,6 @@
 <div class="app-container">
     <br>
     <form ng-submit="" class="formly-inline pull-right">
-        <!--<span style="float: left; line-height: 64px;padding-right: 12px;">创建时间:</span>
-        <div class="box btnbox">
-            <button ng-click="query_btn(1)" class="btn btn-primary " style="background:#122b40; ">全部</button>
-            <button ng-click="query_btn(2)" class="btn btn-primary">今日</button>
-            <button ng-click="query_btn(3)" class="btn btn-primary">昨日</button>
-            <button ng-click="query_btn(4)" class="btn btn-primary">过去7天</button>
-            <button ng-click="query_btn(5)" class="btn btn-primary">过去30天</button>
-            <button ng-click="query_btn(6)" class="btn btn-primary">过去60天</button>
-        </div>-->
         <script>
             //  2016.9.19修改背景色
             $(".btnbox>.btn").mousedown(function () {
@@ -22,19 +13,6 @@
         <button class="btn btn-primary" ng-click="query_btn(0)">搜索</button>
         <br>
         <br>
-            <!--<span style="float: left;line-height: 64px;">账户属性:</span>
-            <button ng-click="query_btn_2(0)" class="btn btn-primary btn_first" style="float: left;margin-top:15px;margin-right: 12px;margin-left: 12px;background:#122b40;"  >全部</button>
-        <div class="box one_btn"style="margin-right: 12px;" >
-            <button ng-click="query_btn_2(1)" class="btn btn-primary ">正常</button>
-            <button ng-click="query_btn_2(2)" class="btn btn-primary " >订阅</button>
-            <button ng-click="query_btn_2(3)" class="btn btn-primary " >试用</button>
-        </div>
-        <div class="box two_btn">
-            <button ng-click="query_btn_2(4)" class="btn btn-primary " >到期</button>
-            <button ng-click="query_btn_2(5)" class="btn btn-primary " >订阅到期</button>
-            <button ng-click="query_btn_2(6)" class="btn btn-primary " >试用到期</button>
-        </div>
-            <button ng-click="query_btn_2(7)" class="btn btn-primary three_btn"style="margin-left: 12px;margin-top: 15px;" >解散</button>-->
     </form>
     <script>
 //    2016.9.19修改按钮颜色
@@ -73,19 +51,17 @@ $(".three_btn").mousedown(function () {
         <thead>
         <tr>
         	<th>注册编码</th>
-            <th style="text-align: center;">注册时间</th>
+            <th style="text-align: center;">解散时间</th>
             <th>项目名称</th>
             <th style="text-align: center;">项目ID</th>
             <th>项目地点</th>
-            <th style="text-align: center;">施工企业</th>
-            <th>施工团队</th>
+            <th style="text-align: center;">项目注册时间</th>
             <th>团队成员</th>
             <th style="text-align: center;">超级管理员</th>
             <th>建道号</th>
             <th style="text-align: center;">手机号码</th>
             <th style="text-align: center;">邀请码</th>
             <th style="text-align: center;">帐户属性</th>
-            <th style="text-align: center;">账户状态</th>
             <th style="text-align: center;">操作日志</th>
             <th style="text-align: center;">项目详情</th>
         </tr>
@@ -94,10 +70,10 @@ $(".three_btn").mousedown(function () {
         <tr ng-repeat="item in data_list">
         	<td>-</td>
             <td style="text-align: center;">{{item.create_time}}</td>
-            <td>{{item.name}}</td>
-            <td style="text-align: center;">{{item.id}}</td>w            
-            <td style="text-align: center;">{{item.address_name}}</td>
+            <td>-</td>
+            <td style="text-align: center;">{{item.id}}</td>
             <td style="width: 150px;word-break: break-all;">-</td>
+            <td style="text-align: center;">{{item.address_name}}</td>
             <td>-</td>
             <td ng-click="show_project_member(item)" style="color:blue;">{{item.members_count}}</td>
             <td style="width: 150px;word-break: break-all;">{{item.manager_name}}</td>

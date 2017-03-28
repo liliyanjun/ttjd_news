@@ -7,14 +7,14 @@ app
             {
                 title: '应用概况', icon: "glyphicon-home", sub_menus: [
                 	{title: '用户概况', icon: "glyphicon-flag", state: "main.home"},
-                	{title: '项目概况', icon: "glyphicon-flag", state: "main.query_users"}
+                	{title: '项目概况', icon: "glyphicon-flag", state: "main.project_show"}
                 ]
             },
             {
                 title: '用户中心', icon: "glyphicon-user", sub_menus: [
                 {title: '注册用户', icon: "glyphicon-flag", state: "main.query_users"},
-                {title: '未激活用户', icon: "glyphicon-flag", state: "main.active_users"},
-                {title: '活跃用户', icon: "glyphicon-flag", state: "main.tongji_user"},
+                {title: '未激活用户', icon: "glyphicon-flag", state: "main.not_active"},
+                {title: '活跃用户', icon: "glyphicon-flag", state: "main.active_users"},
                 {title: '用户分析', icon: "glyphicon-flag", state: "main.distribution_user"},
                 {title: '留存分析', icon: "glyphicon-flag", state: "main.manage_user"},
                 {title: '地域分布', icon: "glyphicon-flag", state: "main.distribution_user"},
@@ -27,7 +27,7 @@ app
                 title: '项目中心', icon: "glyphicon-hdd", sub_menus: [
                 {title: '注册项目', icon: "glyphicon-flag", state: "main.query_projects"},
                 {title: '订阅项目', icon: "glyphicon-flag", state: "main.active_projects"},
-                {title: '解散项目', icon: "glyphicon-flag", state: "main.tongji_project"},
+                {title: '解散项目', icon: "glyphicon-flag", state: "main.dissolution_project"},
                 {title: '活跃项目', icon: "glyphicon-flag", state: "main.distribution_project"},
                 {title: '项目分析', icon: "glyphicon-flag", state: "main.manage_project"},
                 {title: '项目分布', icon: "glyphicon-flag", state: "main.manage_project"}
@@ -36,7 +36,7 @@ app
             },
             {
                 title: '功能应用', icon: "glyphicon-home", sub_menus: [
-                	{title: '应用模块', icon: "glyphicon-flag", state: "main.query_users"},
+                	{title: '应用模块', icon: "glyphicon-flag", state: "main.functional_module"},
                 	{title: '上传数据', icon: "glyphicon-flag", state: "main.query_users"}
                 ]
             },
