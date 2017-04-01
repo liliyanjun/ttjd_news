@@ -67,38 +67,32 @@ $(".three_btn").mousedown(function () {
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="item in data_list">
+        <tr ng-repeat="item in arr">
         	<td>-</td>
-            <td style="text-align: center;">{{item.create_time}}</td>
-            <td>-</td>
+            <td style="text-align: center;">{{item.use_end_date}}</td>
+            <td>{{item.name}}</td>
             <td style="text-align: center;">{{item.id}}</td>
-            <td style="width: 150px;word-break: break-all;">-</td>
-            <td style="text-align: center;">{{item.address_name}}</td>
-            <td>-</td>
+            <td style="width: 150px;word-break: break-all;">{{item.address_name}}</td>
+            <td style="text-align: center;">{{item.use_start_date}}</td>
             <td ng-click="show_project_member(item)" style="color:blue;">{{item.members_count}}</td>
-            <td style="width: 150px;word-break: break-all;">{{item.manager_name}}</td>
-            <td>-</td>
+            <td>{{item.manager_name}}</td>
+            <td style="width: 150px;word-break: break-all;">-</td>           
             <td style="text-align: center;">{{item.manager_tel}}</td>
-            <td>{{item.channel}}</td>
             <td>-</td>
-            <td>-</td>
+            <td style="text-align: center;">
+                <span ng-if="item.status==3" class="project-state-del">解散</span>
+            </td>
             <td>-</td>
             <td style="text-align: center;">
                 <button type="button" class="btn btn-success" ng-click="show_projectinfo(item)">查看</button>
             </td>
-            <!--<td style="text-align: center;">
-                <span ng-if="item.status==3" class="project-state-del">解散</span>
-                <span ng-if="item.status==0 && !item.is_renzheng && (item.enable_days_status==0 || item.enable_days_status==1)" class="project-rezheng-try">试用</span>
-                <span ng-if="item.status==0 &&item.is_renzheng && (item.enable_days_status==0 || item.enable_days_status==1)" class="project-rezheng-renzheng">订阅</span>
-                <span ng-if="item.status==0 &&!item.is_renzheng && item.enable_days_status==2" class="project-rezheng-warning">试用到期</span>
-                <span ng-if="item.status==0 &&item.is_renzheng && item.enable_days_status==2" class="project-rezheng-timeout">订阅到期</span>
-            </td>-->
+            
             <!--<td>-->
                 <!--<span ng-if="item.status==0" class="project-state-normal">正常</span>-->
                 <!---->
             <!--</td>-->
 
-            <!--<td style="width: 200px;word-break: break-all;">-->
+            <!--<td style="width: 200px;">-->
                 <!--<span class="btn btn-link" ng-click="renzheng_project(item)">认证</span>-->
                 <!--<span class="btn btn-link" ng-click="log_project(item)">日志</span>-->
                 <!--&lt;!&ndash;<span class="btn btn-link">统计</span>&ndash;&gt;-->

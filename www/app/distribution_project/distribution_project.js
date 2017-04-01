@@ -1,316 +1,192 @@
-app.controller('DistributionProjectCtrl', function ($scope, httpReq, auth,makeChartConfigForXY, $location, localStorage, $interval, showToast, modalBox, $q) {
-    $scope.result = [];
+app.controller('DistributionProjectCtrl', function ($scope, httpReq, auth, $location, showConfirm,localStorage, $interval,loading, showToast, modalBox) {
     $scope.query = {};
     $scope.query.data = {
-        //"query_time_type": 1,
-        //"start_date": moment().format("YYYY-MM-DD"),
-        "query_area_type": false
+        "query_show_delete": true
     };
-    $scope.city_list = city_data.city_list;
-    $scope.province_list = city_data.province_list;
-    $scope.query_time_type = 1;
-    $scope.query_top_type=1;
     $scope.query_config = [
-        //{
-        //    key: 'query_time_type',
-        //    type: 'select',
-        //    templateOptions: {
-        //        label: '时间',
-        //        options: [
-        //            {
-        //                "name": "单日",
-        //                "value": 1
-        //            }, {
-        //                "name": "过去7天",
-        //                "value": 2
-        //            }, {
-        //                "name": "过去30天",
-        //                "value": 3
-        //            }
-        //        ]
-        //    }
-        //},
-        //{
-        //    key: 'start_date',
-        //    type: 'datepicker',
-        //    templateOptions: {
-        //        label: '选择日期'
-        //    }
-        //},
         {
-            key: 'query_area_type',
+            key: 'query_show_delete',
             type: 'checkbox',
             templateOptions: {
-                label: '是否显示市级'
+                label: '是否显示解散项目'
             }
         }
-
-
     ];
-    $scope.query_btn_top = function (type) {
-        $scope.query_top_type=type;
-        if($scope.query_top_type==1){
-            $scope.chartConfig = makeChartConfigForXY("新建项目", $scope.new_project_top10_result);
-        }else if($scope.query_top_type==2){
-            $scope.chartConfig = makeChartConfigForXY("活跃项目", $scope.active_project_top10_result);
-        }else if($scope.query_top_type==3){
-            $scope.chartConfig = makeChartConfigForXY("正常项目", $scope.normal_project_top10_result);
-        }else if($scope.query_top_type==4){
-            $scope.chartConfig = makeChartConfigForXY("订阅项目", $scope.renzheng_project_top10_result);
-        }
-    };
+    $scope.query_time_type = 1;
     $scope.query_btn = function (type) {
+        loading.show();
         $scope.query_time_type = type;
-        if($scope.query_time_type==1){
+        if ($scope.query_time_type == 1) {
             $scope.start_date = moment().subtract(1, 'days').format("YYYY-MM-DD");
             $scope.end_date = moment().format("YYYY-MM-DD");
-        }else if ($scope.query_time_type == 2) {
+        } else if ($scope.query_time_type == 2) {
+            $scope.start_date = moment().subtract(8, 'days').format("YYYY-MM-DD");
             $scope.end_date = moment().subtract(1, 'days').format("YYYY-MM-DD");
-            $scope.start_date = moment($scope.end_date).subtract(7, 'days').format("YYYY-MM-DD");
         } else if ($scope.query_time_type == 3) {
+            $scope.start_date = moment().subtract(31, 'days').format("YYYY-MM-DD");
             $scope.end_date = moment().subtract(1, 'days').format("YYYY-MM-DD");
-            $scope.start_date = moment($scope.end_date).subtract(30, 'days').format("YYYY-MM-DD");
-        }else if ($scope.query_time_type == 4) {
+        } else if ($scope.query_time_type == 4) {
+            $scope.start_date = moment().subtract(61, 'days').format("YYYY-MM-DD");
             $scope.end_date = moment().subtract(1, 'days').format("YYYY-MM-DD");
-            $scope.start_date = moment($scope.end_date).subtract(60, 'days').format("YYYY-MM-DD");
         }
-
-        $scope.show_start_date = moment($scope.start_date).add(1, 'days').format("YYYY-MM-DD");
-        $scope.show_end_date = moment($scope.end_date).format("YYYY-MM-DD");
-
-
-        httpReq("/nm2/project/query_project_distribution", {
+        httpReq("/nm2/project/query_active_project", {
             start_date: $scope.start_date,
-            end_date: $scope.end_date,
-            type: $scope.query.data.query_area_type
+            end_date: $scope.end_date
         }).then(function (data) {
-            $scope.new_project_result = data.result.new_project_result;
-            $scope.normal_project_result = data.result.normal_project_result;
-            $scope.active_project_result = data.result.active_project_result;
-            $scope.renzheng_project_result = data.result.renzheng_project_result;
-
-
-
-            $scope.new_project_count = 0;
-            _($scope.new_project_result).each(function (i) {
-                if(i.name!='未知') {
-                    $scope.new_project_count += i.count;
-                }
-            });
-            $scope.normal_project_count = 0;
-            _($scope.normal_project_result).each(function (i) {
-                if(i.name!='未知') {
-                    $scope.normal_project_count += i.count;
-                }
-            });
-            $scope.active_project_count = 0;
-            _($scope.active_project_result).each(function (i) {
-                if(i.name!='未知') {
-                    $scope.active_project_count += 1;
-                }
-            });
-            $scope.renzheng_project_count = 0;
-            _($scope.renzheng_project_result).each(function (i) {
-                if(i.name!='未知'){
-                    $scope.renzheng_project_count += i.count;
-                }
-            });
-            $scope.result = [];
-            if($scope.query.data.query_area_type){
-                _($scope.city_list).each(function (p) {
-                    var item = {};
-                    item['name'] = p.province_name+' '+p.city_name;
-                    var have_new_project = false;
-                    _($scope.new_project_result).each(function (i) {
-                        if (i.name == p.city_name) {
-                            item['new_project_count'] = i.count;
-                            have_new_project = true;
-                        }
-                    });
-                    if (!have_new_project) {
-                        item['new_project_count'] = 0;
-                    }
-                    var have_normal_project = false;
-                    _($scope.normal_project_result).each(function (i) {
-                        if (i.name == p.city_name) {
-                            item['normal_project_count'] = i.count;
-                            have_normal_project = true;
-                        }
-                    });
-                    if (!have_normal_project) {
-                        item['normal_project_count'] = 0;
-                    }
-                    var have_active_project = false;
-                    _($scope.active_project_result).each(function (i) {
-                        if (i.name == p.city_name) {
-                            if(item.active_project_count>=0){
-                                item['active_project_count'] =  item.active_project_count + 1;
-                            }else{
-                                item['active_project_count'] = 1;
-                            }
-                            have_active_project = true;
-                        }
-                    });
-                    if (!have_active_project) {
-                        item['active_project_count'] = 0;
-                    }
-                    var have_renzheng_project = false;
-                    _($scope.renzheng_project_result).each(function (i) {
-                        if (i.name == p.city_name) {
-                            item['renzheng_project_count'] = i.count;
-                            have_renzheng_project = true;
-                        }
-                    });
-                    if (!have_renzheng_project) {
-                        item['renzheng_project_count'] = 0;
-                    }
-                    $scope.result.push(item);
-                });
-                $scope.dataresult = angular.copy($scope.result);
-                $scope.new_project_top10 = $scope.result.sort(function(a,b){
-                    return b.new_project_count- a.new_project_count;
-                });
-                $scope.new_project_top10 = $scope.new_project_top10.slice(0,10);
-                $scope.new_project_top10_result = [];
-                _($scope.new_project_top10).each(function(i){
-                    var item={};
-                    item['y'] = i.new_project_count;
-                    item['x'] = i.name;
-                    $scope.new_project_top10_result.push(item);
-                });
-                $scope.normal_project_top10 = $scope.result.sort(function(a,b){
-                    return b.normal_project_count- a.normal_project_count;
-                });
-                $scope.normal_project_top10 = $scope.normal_project_top10.slice(0,10);
-                $scope.normal_project_top10_result = [];
-                _($scope.normal_project_top10).each(function(i){
-                    var item={};
-                    item['y'] = i.normal_project_count;
-                    item['x'] = i.name;
-                    $scope.normal_project_top10_result.push(item);
-                });
-                $scope.active_project_top10 = $scope.result.sort(function(a,b){
-                    return b.active_project_count- a.active_project_count;
-                });
-                $scope.active_project_top10 = $scope.active_project_top10.slice(0,10);
-                $scope.active_project_top10_result = [];
-                _($scope.active_project_top10).each(function(i){
-                    var item={};
-                    item['y'] = i.active_project_count;
-                    item['x'] = i.name;
-                    $scope.active_project_top10_result.push(item);
-                });
-                $scope.renzheng_project_top10 = $scope.result.sort(function(a,b){
-                    return b.renzheng_project_count- a.renzheng_project_count;
-                });
-                $scope.renzheng_project_top10 = $scope.renzheng_project_top10.slice(0,10);
-                $scope.renzheng_project_top10_result = [];
-                _($scope.renzheng_project_top10).each(function(i){
-                    var item={};
-                    item['y'] = i.renzheng_project_count;
-                    item['x'] = i.name;
-                    $scope.renzheng_project_top10_result.push(item);
-                });
-                $scope.query_btn_top($scope.query_top_type);
+            if($scope.query.data.query_show_delete){
+                $scope.data = data.result;
             }else{
-                _($scope.province_list).each(function (p) {
-                    var item = {};
-                    item['name'] = p.province_name;
-                    var have_new_project = false;
-                    _($scope.new_project_result).each(function (i) {
-                        if (i.name == p.province_name) {
-                            item['new_project_count'] = i.count;
-                            have_new_project = true;
-                        }
-                    });
-                    if (!have_new_project) {
-                        item['new_project_count'] = 0;
-                    }
-                    var have_normal_project = false;
-                    _($scope.normal_project_result).each(function (i) {
-                        if (i.name == p.province_name) {
-                            item['normal_project_count'] = i.count;
-                            have_normal_project = true;
-                        }
-                    });
-                    if (!have_normal_project) {
-                        item['normal_project_count'] = 0;
-                    }
-                    var have_active_project = false;
-                    _($scope.active_project_result).each(function (i) {
-                        if (i.name == p.province_name) {
-                            if(item.active_project_count>=0){
-                                item['active_project_count'] =  item.active_project_count + 1;
-                            }else{
-                                item['active_project_count'] = 1;
-                            }
-
-                            have_active_project = true;
-                        }
-                    });
-                    if (!have_active_project) {
-                        item['active_project_count'] = 0;
-                    }
-                    var have_renzheng_project = false;
-                    _($scope.renzheng_project_result).each(function (i) {
-                        if (i.name == p.province_name) {
-                            item['renzheng_project_count'] = i.count;
-                            have_renzheng_project = true;
-                        }
-                    });
-                    if (!have_renzheng_project) {
-                        item['renzheng_project_count'] = 0;
-                    }
-                    $scope.result.push(item);
+                $scope.data = _(data.result).filter(function(p){
+                    return p.status==0
                 });
             }
-            $scope.dataresult = angular.copy($scope.result);
-            $scope.new_project_top10 = $scope.result.sort(function(a,b){
-                return b.new_project_count- a.new_project_count;
+            loading.hide();
+        });
+    };
+    $scope.query_config2 = [
+            //{
+            //    key: 'query_time_type',
+            //    type: 'select',
+            //    templateOptions: {
+            //        label: '时间',
+            //        options: [
+            //            {
+            //                "name": "全部",
+            //                "value": 0
+            //            },
+            //            {
+            //                "name": "今日",
+            //                "value": 1
+            //            }, {
+            //                "name": "昨日",
+            //                "value": 2
+            //            }, {
+            //                "name": "过去7天",
+            //                "value": 3
+            //            }, {
+            //                "name": "过去30天",
+            //                "value": 4
+            //            }, {
+            //                "name": "过去60天",
+            //                "value": 5
+            //            }, {
+            //                "name": "任选时间",
+            //                "value": 6
+            //            }
+            //        ]
+            //    }
+            //},
+            //{
+            //    key: 'start_date',
+            //    type: 'datepicker',
+            //
+            //    templateOptions: {
+            //        label: '起始时间'
+            //    },
+            //    "hideExpression": "model.query_time_type!=6"
+            //},
+            //{
+            //    key: 'end_date',
+            //    type: 'datepicker',
+            //    templateOptions: {
+            //        label: '结束时间'
+            //    },
+            //    "hideExpression": "model.query_time_type!=6"
+            //},
+            //{
+            //    key: 'query_renzheng_type',
+            //    type: 'select',
+            //    templateOptions: {
+            //        label: '订阅状态',
+            //        options: [
+            //            {
+            //                "name": "全部",
+            //                "value": 0
+            //            }, {
+            //                "name": "订阅",
+            //                "value": 1
+            //            }, {
+            //                "name": "试用",
+            //                "value": 2
+            //            }, {
+            //                "name": "订阅到期",
+            //                "value": 3
+            //            }, {
+            //                "name": "试用到期",
+            //                "value": 4
+            //            }]
+            //    }
+            //
+            //},
+            //{
+            //    key: 'query_project_type',
+            //    type: 'select',
+            //    templateOptions: {
+            //        label: '项目状态',
+            //        options: [{
+            //            "name": "全部",
+            //            "value": -1
+            //        }, {
+            //            "name": "正常",
+            //            "value": 0
+            //        }, {
+            //            "name": "解散",
+            //            "value": 3
+            //        }]
+            //    },
+            //},
+            {
+                key: 'query_type',
+                type: 'select',
+                templateOptions: {
+                    options: [{
+                        "name": "项目名称",
+                        "value": 1
+                    }, {
+                        "name": "ID",
+                        "value": 2
+                    }]
+                }
+            },
+
+            {
+                key: 'query_content',
+                type: 'input',
+                templateOptions: {
+                    type: "text"
+                }
+            }
+        ];
+    $scope.show_project_member = function (project) {
+        modalBox.show("query_project_member", {project_id: project.id});
+    };
+    $scope.show_projectinfo = function (project) {
+        modalBox.show("query_projectinfo", {project_id: project.id});
+    };
+    $scope.log_project = function (project) {
+        modalBox.show("log_project", {project_id: project.id});
+    };
+    $scope.renzheng_project = function (project) {
+        modalBox.show("renzheng_project", {project_id: project.id}).then(function (result) {
+            angular.extend(project, result);
+        });
+    };
+    $scope.recover_project = function (project) {
+        showConfirm('提示', '是否确认恢复项目').then(function () {
+            httpReq('/nm2/project/recover_project', {project_id: project.id}).then(function () {
+                project.status = 0;
+                showToast('恢复成功', 'success');
             });
-            $scope.new_project_top10 = $scope.new_project_top10.slice(0,10);
-            $scope.new_project_top10_result = [];
-            _($scope.new_project_top10).each(function(i){
-                var item={};
-                item['y'] = i.new_project_count;
-                item['x'] = i.name;
-                $scope.new_project_top10_result.push(item);
+        });
+    };
+    $scope.delete_project = function (project) {
+        showConfirm('提示', '是否确认解散项目').then(function () {
+            httpReq('/nm2/project/delete_project', {project_id: project.id}).then(function () {
+                project.status = 3;
+                showToast('解散成功', 'success');
             });
-            $scope.normal_project_top10 = $scope.result.sort(function(a,b){
-                return b.normal_project_count- a.normal_project_count;
-            });
-            $scope.normal_project_top10 = $scope.normal_project_top10.slice(0,10);
-            $scope.normal_project_top10_result = [];
-            _($scope.normal_project_top10).each(function(i){
-                var item={};
-                item['y'] = i.normal_project_count;
-                item['x'] = i.name;
-                $scope.normal_project_top10_result.push(item);
-            });
-            $scope.active_project_top10 = $scope.result.sort(function(a,b){
-                return b.active_project_count- a.active_project_count;
-            });
-            $scope.active_project_top10 = $scope.active_project_top10.slice(0,10);
-            $scope.active_project_top10_result = [];
-            _($scope.active_project_top10).each(function(i){
-                var item={};
-                item['y'] = i.active_project_count;
-                item['x'] = i.name;
-                $scope.active_project_top10_result.push(item);
-            });
-            $scope.renzheng_project_top10 = $scope.result.sort(function(a,b){
-                return b.renzheng_project_count- a.renzheng_project_count;
-            });
-            $scope.renzheng_project_top10 = $scope.renzheng_project_top10.slice(0,10);
-            $scope.renzheng_project_top10_result = [];
-            _($scope.renzheng_project_top10).each(function(i){
-                var item={};
-                item['y'] = i.renzheng_project_count;
-                item['x'] = i.name;
-                $scope.renzheng_project_top10_result.push(item);
-            });
-            $scope.query_btn_top($scope.query_top_type);
         });
     };
     $scope.query_btn(1);
+
 });

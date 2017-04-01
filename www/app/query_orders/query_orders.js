@@ -23,23 +23,11 @@ app.controller('queryOrdersCtrl', function ($scope, httpReq, auth, $location, lo
                 type: 'select',
                 templateOptions: {
                     options: [{
-                        "name": "全部",
+                        "name": "项目名称",
                         "value": -1
                     },{
-                        "name": "订单号",
+                        "name": "ID",
                         "value": 0
-                    }, {
-                        "name": "手机号",
-                        "value": 1
-                    }, {
-                        "name": "用户姓名",
-                        "value": 2
-                    }, {
-                        "name": "项目ID",
-                        "value": 3
-                    }, {
-                        "name": "项目名称",
-                        "value": 4
                     }]
                 }
             },

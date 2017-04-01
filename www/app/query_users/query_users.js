@@ -16,50 +16,6 @@ app.controller('queryUsersCtrl', function ($scope, httpReq, auth, $location, loc
         $scope.query_time_type = 1;
         $scope.query.data = {"query_type": 1};
         $scope.query_config = [
-            //{
-            //
-            //    key: 'query_time_type',
-            //    type: 'select',
-            //    templateOptions: {
-            //        label: '注册时间',
-            //        options: [{
-            //            "name": "全部",
-            //            "value": 1
-            //        }, {
-            //            "name": "今日",
-            //            "value": 2
-            //        }, {
-            //            "name": "昨日",
-            //            "value": 3
-            //        }, {
-            //            "name": "过去7天",
-            //            "value": 4
-            //        }, {
-            //            "name": "过去30天",
-            //            "value": 5
-            //        }, {
-            //            "name": "任选时间",
-            //            "value": 6
-            //        }]
-            //    }
-            //},
-            //{
-            //    key: 'start_date',
-            //    type: 'datepicker',
-            //
-            //    templateOptions: {
-            //        label: '起始时间'
-            //    },
-            //    "hideExpression": "model.query_time_type!=6"
-            //},
-            //{
-            //    key: 'end_date',
-            //    type: 'datepicker',
-            //    templateOptions: {
-            //        label: '结束时间'
-            //    },
-            //    "hideExpression": "model.query_time_type!=6"
-            //},
             {
                 key: 'query_type',
                 type: 'select',
@@ -88,7 +44,7 @@ app.controller('queryUsersCtrl', function ($scope, httpReq, auth, $location, loc
             if (type != 0) {
                 $scope.query_time_type = type;
             }
-            if ($scope.query.data.query_type == 1) {
+            if ($scope.query.data.query_type == 1) {query_btn
                 $scope.query_arg = {tel: $scope.query.data.query_content};
             } else if ($scope.query.data.query_type == 2) {
                 $scope.query_arg = {realname: $scope.query.data.query_content};

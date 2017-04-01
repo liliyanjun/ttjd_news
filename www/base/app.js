@@ -111,11 +111,11 @@ app.config(function ($stateProvider, $urlRouterProvider, modalBoxProvider, forml
             templateUrl: "app/dissolution_project/dissolution_project.html",
             controller: "jieDissolutionProject"
         })
-		.state('main.functional_module', {            
-            url: '/functional_module',
-            templateUrl: "app/functional_module/functional_module.html",
-            controller: "gongFunctionalModule"
-        })
+//		.state('main.functional_module', {            
+//          url: '/functional_module',
+//          templateUrl: "app/functional_module/functional_module.html",
+//          controller: "gongFunctionalModule"
+//      })
 		
     $urlRouterProvider.otherwise(function ($injector, $location) {
         var auth = $injector.get("auth");

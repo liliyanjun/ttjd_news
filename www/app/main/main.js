@@ -36,18 +36,18 @@ app
             },
             {
                 title: '功能应用', icon: "glyphicon-home", sub_menus: [
-                	{title: '应用模块', icon: "glyphicon-flag", state: "main.functional_module"},
+                	{title: '应用模块', icon: "glyphicon-flag", state: "main.manage_user"},
                 	{title: '上传数据', icon: "glyphicon-flag", state: "main.query_users"}
                 ]
             },
             {
                 title: '订单中心', icon: "glyphicon-euro", sub_menus: [
-                {title: '订阅列表', icon: "glyphicon-flag", state: "main.query_orders"},
-                {title: '成立订单', icon: "glyphicon-flag", state: "main.query_orders"},
-                {title: '订阅明细', icon: "glyphicon-flag", state: "main.query_orders"},
-                {title: '发票开据', icon: "glyphicon-flag", state: "main.query_orders"},
-                {title: 'MRR统计', icon: "glyphicon-flag", state: "main.query_orders"},
-                {title: '客户名录', icon: "glyphicon-flag", state: "main.query_orders"}
+                {title: '订阅列表', icon: "glyphicon-flag", state: "main.query_orders"}
+//              {title: '成立订单', icon: "glyphicon-flag", state: "main.query_orders"},
+//              {title: '订阅明细', icon: "glyphicon-flag", state: "main.query_orders"},
+//              {title: '发票开据', icon: "glyphicon-flag", state: "main.query_orders"},
+//              {title: 'MRR统计', icon: "glyphicon-flag", state: "main.query_orders"},
+//              {title: '客户名录', icon: "glyphicon-flag", state: "main.query_orders"}
             ]
             },
             {

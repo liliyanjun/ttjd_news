@@ -1,77 +1,78 @@
 <div class="app-container">
-    <br>
+    <!--<br><formly-form model="query.data" fields="query_config2" style="line-height: 64px;margin-left: 12px;">
+    </formly-form>
+    <button class="btn btn-primary" ng-click="query_btn(0)">搜索</button>-->
+    
     <script>
-        // 2016.9.19修改背景色
-        $(".btnbox2>.btn").mousedown(function () {
+        // 2016.9.19
+        // 修改按钮颜色 guohongjun
+        $(".box_one>.btn").mousedown(function () {
             index=$(this).index();
-            $(".btnbox2>.btn").css({background:"#337ab7"}).eq(index-1).css({background:"#122b40"})
+            $(".box_one>.btn").css({background:"#337ab7"}).eq(index-1).css({background:"#122b40"})
         })
+        
     </script>
-    <table class="table table-bordered">
+	
+
+    <br>
+    <span ng-if="data.length>0">项目汇总:{{data.length}}</span>
+    <span ng-if="data.length<=0">暂无内容</span>
+    <table class="table table-bordered table-striped">
+        <thead>
         <tr>
-            <th>注册编码</th>
+            <th style="text-align: center;">注册编号</th>
             <th>项目名称</th>
-            <th>项目ID</th>
+            <th style="text-align: center;">项目ID</th>
             <th>项目地点</th>
             <th>施工企业</th>
-            <th>项目注册时间</th>
+            <th style="text-align: center;">项目注册时间</th>
             <th>团队成员</th>
-            <th>超级管理员</th>
+            <th style="text-align: center;">超级管理员</th>
             <th>建道号</th>
             <th>手机号码</th>
             <th>邀请码</th>
             <th>帐户属性</th>
             <th>账户状态</th>
             <th>操作日志</th>
-            <th>项目详情</th>
+            <th style="text-align: center;">项目详情</th>
         </tr>
-        <tr ng-repeat="data in dataresult">
-            <td>{{data.name}}</td>
-            <td>{{data.new_project_count}}</td>
-            <td ng-if="data.name!='未知'">{{data.new_project_count/new_project_count*100|number:2}}%</td>
-            <td ng-if="data.name=='未知'">-</td>
-            <td>{{data.active_project_count}}</td>
-            <td ng-if="data.name!='未知'">{{data.active_project_count/active_project_count*100|number:2}}%</td>
-            <td ng-if="data.name=='未知'">-</td>
-            <td>{{data.normal_project_count}}</td>
-            <td ng-if="data.name!='未知'">{{data.normal_project_count/normal_project_count*100|number:2}}%</td>
-            <td ng-if="data.name=='未知'">-</td>
-            <td>{{data.renzheng_project_count}}</td>
-            <td ng-if="data.name!='未知'">{{data.renzheng_project_count/renzheng_project_count*100|number:2}}%</td>
-            <td ng-if="data.name=='未知'">-</td>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in data">
+        	<td>-</td>
+        	<td style="width: 150px;word-break: break-all;">{{item.name}}</td>
+            <td style="text-align: center;">{{item.id}}</td>
+            
+            <td style="text-align: center;">{{item.address_name}}</td>
             <td>-</td>
+            <td>{{item.create_time}}</td>
+            <td ng-click="show_project_member(item)" style="color:blue;" >{{item.members_count}}</td>
+            
+            <td>{{item.manager_name}}</td>
             <td>-</td>
+            <td>{{item.manager_tel}}</td>
             <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>           
+            <td>
+                <span ng-if="item.status==3" class="project-state-del">解散</span>
+                <span ng-if="item.status==0 && !item.is_renzheng && (item.enable_days_status==0 || item.enable_days_status==1)" class="project-rezheng-try">试用</span>
+                <span ng-if="item.status==0 &&item.is_renzheng && (item.enable_days_status==0 || item.enable_days_status==1)" class="project-rezheng-renzheng">订阅</span>
+                <span ng-if="item.status==0 &&!item.is_renzheng && item.enable_days_status==2" class="project-rezheng-warning">试用到期</span>
+                <span ng-if="item.status==0 &&item.is_renzheng && item.enable_days_status==2" class="project-rezheng-timeout">订阅到期</span>
+            </td>
+            <td style="text-align: center;">
+                <span ng-if="item.status==3" class="project-state-del">解散</span>
+                <span ng-if="item.status==0 && !item.is_renzheng && (item.enable_days_status==0 || item.enable_days_status==1)" class="project-rezheng-try">试用</span>
+                <span ng-if="item.status==0 &&item.is_renzheng && (item.enable_days_status==0 || item.enable_days_status==1)" class="project-rezheng-renzheng">订阅</span>
+                <span ng-if="item.status==0 &&!item.is_renzheng && item.enable_days_status==2" class="project-rezheng-warning">试用到期</span>
+                <span ng-if="item.status==0 &&item.is_renzheng && item.enable_days_status==2" class="project-rezheng-timeout">订阅到期</span>
+            </td>
+            
+            <td>{{item.start_count}}</td>
+            
+            <td style="text-align: center;">
+                <button type="button" class="btn btn-success" ng-click="show_projectinfo(item)">查看</button>
+            </td>
         </tr>
-        <!--<tr ng-if="dataresult.length>0">
-            <td>合计</td>
-            <td>{{new_project_count}}</td>
-            <td>100%</td>
-            <td>{{active_project_count}}</td>
-            <td>100%</td>
-            <td>{{normal_project_count}}</td>
-            <td>100%</td>
-            <td>{{renzheng_project_count}}</td>
-            <td>100%</td>
-        </tr>-->
-        <!--<tr ng-repeat="city in city_list" ng-if="query.data.query_area_type">-->
-            <!--<td>{{city.province_name}} {{city.city_name}}</td>-->
-            <!--<td ng-repeat="t in total_user_result" ng-if="t.name==city.city_name">{{t.count}}</td>-->
-            <!--<td ng-repeat="t in total_user_result" ng-if="t.name==city.city_name">{{t.count/total_user_count*100|number:2}}%</td>-->
-            <!--<td ng-repeat="n in new_user_result" ng-if="n.name==city.city_name">{{n.count}}</td>-->
-            <!--<td ng-repeat="n in new_user_result" ng-if="n.name==city.city_name">{{n.count/new_user_count*100|number:2}}%</td>-->
-        <!--</tr>-->
-        <!--<tr ng-repeat="province in province_list" ng-if="!query.data.query_area_type">-->
-            <!--<td>{{province.province_name}}</td>-->
-            <!--<td ng-repeat="t in total_user_result" ng-if="t.name==province.province_name">{{t.count}}</td>-->
-            <!--<td ng-repeat="t in total_user_result" ng-if="t.name==province.province_name">{{t.count/total_user_count*100|number:2}}%</td>-->
-            <!--<td ng-repeat="n in new_user_result" ng-if="n.name==province.province_name">{{n.count}}</td>-->
-            <!--<td ng-repeat="n in new_user_result" ng-if="n.name==province.province_name">{{n.count/new_user_count*100|number:2}}%</td>-->
-        <!--</tr>-->
+        </tbody>
     </table>
-
 </div>
-

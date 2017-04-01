@@ -42,13 +42,17 @@
         <tbody>
         <tr ng-repeat="item in data.result">
             <td style="width: 200px;word-break: break-all">{{item.realname}}</td>
+            <td>-</td>
             <td style="text-align: center;">{{item.tel}}</td>
             <td style="text-align: center;">{{item.tel_province}} {{item.tel_city}}</td>
             <td>-</td>
-            <td style="text-align: center;">{{item.address_name}}</td>
-            <td style="text-align: center;">{{item.create_time}}</td>
-            <td>{{item.create_days}}</td>
-            <td>{{item.start_count}}</td>
+            <td style="text-align: center;">-</td>
+            <td>-</td>
+            <td style="text-align: center;">{{item.start_count}}</td>   
+            <td>{{item.create_days}}</td>                   
+            <td style="text-align: center;">
+                <button type="button" class="btn btn-success" ng-click="show_projectinfo(item)">查看</button>
+            </td>
         </tr>
         </tbody>
     </table>

@@ -1,7 +1,5 @@
 <div class="app-container">
-    <br>
     <form ng-submit="" class="formly-inline pull-right" style="line-height: 64px;">
-    	<div class="font-title">注册用户</div>
         <script>
             //  2016.9.19修改背景色
             $(".btnbox>.btn").mousedown(function () {
@@ -9,15 +7,11 @@
                 $(".btnbox>.btn").css({background:"#337ab7"}).eq(index-1).css({background:"#122b40"})
             })
         </script>
-
         <formly-form model="query.data" fields="query_config" style="margin-left: 10px;">
         </formly-form>
         <button class="btn btn-primary" ng-click="query_btn(0)">搜索</button>
-
     </form>
     <div class="clearfix"></div>
-    <br>
-
     <span ng-if="total_count">小计:{{total_count}}</span>
     <span ng-if="!total_count">暂无内容</span>
     <table class="table table-bordered table-striped">

@@ -1,6 +1,5 @@
 <div class="app-container">
     <br>
-    
     <script>
         // 2016.9.19
         // 修改按钮颜色 guohongjun
@@ -9,8 +8,9 @@
             $(".box_one>.btn").css({background:"#337ab7"}).eq(index-1).css({background:"#122b40"})
         })
     </script>
-
-
+	<formly-form model="query.data" fields="query_config" style="line-height: 64px;margin-left: 12px;"></formly-form>
+    <!--<button class="btn btn-primary" ng-click="query_btn(0)">搜索</button>-->
+    <br />
     <div class="clearfix"></div>
     <br>
     <span ng-if="data.length>0">小计:{{data.length}}</span>
